@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="io.metersphere.base.mapper.ext.ExtCheckOwnerMapper">
+    <select id="checkoutOwner" resultType="boolean">
+        SELECT count(1) > 0
+        FROM user_group
+        WHERE source_id IN (
+            SELECT project_id
+            FROM ${table} JOIN project ON ${table}.project_id = project.id
+            WHERE ${table}.id IN
+            <foreach collection="ids" item="id" separator="," open="(" close=")">
+                #{id}
+            </foreach>
+        )
+        AND user_id = #{userId}
+
+    </select>
+</mapper>
