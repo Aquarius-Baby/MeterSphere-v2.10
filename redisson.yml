@@ -1,0 +1,5 @@
+# password: Password123@redis
+singleServerConfig:
+  address: "redis://localhost:6379"
+  # password:
+  database: 0
